@@ -1055,6 +1055,177 @@
                     scroll-behavior: auto;
                 }
             }
+
+            /* scratch-off coupons */
+            .coupon-count {
+                text-align: center;
+                font-weight: 600;
+                color: var(--rose);
+                margin: -14px 0 30px;
+                font-size: 0.95rem;
+            }
+            .coupon-group {
+                font-family: var(--serif);
+                font-style: italic;
+                font-weight: 500;
+                font-size: 1.45rem;
+                text-align: center;
+                color: var(--plum);
+                margin: 0 0 20px;
+            }
+            .coupon-group.after-dark {
+                margin-top: 52px;
+            }
+            .coupon-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 24px 22px;
+            }
+            .coupon {
+                position: relative;
+                filter: drop-shadow(0 12px 20px rgba(139, 38, 110, 0.22));
+            }
+            .cface {
+                --foot: 66px;
+                position: relative;
+                min-height: 236px;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                border-radius: 18px;
+                background: rgba(255, 255, 255, 0.92);
+                -webkit-mask:
+                    radial-gradient(circle 12px at 0 calc(100% - var(--foot)), transparent 97%, #000) left / 50.5% 100%
+                        no-repeat,
+                    radial-gradient(circle 12px at 100% calc(100% - var(--foot)), transparent 97%, #000) right / 50.5%
+                        100% no-repeat;
+                mask:
+                    radial-gradient(circle 12px at 0 calc(100% - var(--foot)), transparent 97%, #000) left / 50.5% 100%
+                        no-repeat,
+                    radial-gradient(circle 12px at 100% calc(100% - var(--foot)), transparent 97%, #000) right / 50.5%
+                        100% no-repeat;
+            }
+            .coupon.hot .cface {
+                background: linear-gradient(165deg, #fff1f7, #ffcfe3);
+            }
+            .cbody {
+                flex: 1;
+                padding: 26px 20px 14px;
+                text-align: center;
+                transition: opacity 0.4s ease;
+            }
+            .cface.prep .cbody,
+            .cface.prep .cfoot {
+                opacity: 0;
+            }
+            .cem {
+                font-size: 2.6rem;
+                line-height: 1;
+                margin-bottom: 10px;
+            }
+            .ctitle {
+                font-family: var(--serif);
+                font-weight: 700;
+                font-size: 1.2rem;
+                line-height: 1.25;
+                color: var(--plum);
+                margin-bottom: 6px;
+            }
+            .ctext {
+                font-size: 0.95rem;
+                line-height: 1.5;
+                opacity: 0.85;
+            }
+            .cbadge {
+                position: absolute;
+                top: 12px;
+                right: 14px;
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: #fff;
+                background: var(--rose);
+                border-radius: 999px;
+                padding: 2px 9px;
+            }
+            .cfoot {
+                height: var(--foot);
+                display: grid;
+                place-items: center;
+                border-top: 2px dashed rgba(225, 29, 98, 0.35);
+            }
+            .cbtn {
+                padding: 9px 22px;
+                border-radius: 999px;
+                font-weight: 600;
+                font-size: 0.95rem;
+                color: var(--rose);
+                background: rgba(255, 255, 255, 0.9);
+                border: 1.5px solid rgba(225, 29, 98, 0.4);
+                transition:
+                    transform 0.2s ease,
+                    background 0.2s ease;
+            }
+            .cbtn:hover:not(:disabled) {
+                transform: translateY(-2px);
+                background: #fff;
+            }
+            .cbtn:disabled {
+                opacity: 0.6;
+                cursor: default;
+            }
+            .cbtn.sure {
+                background: var(--rose);
+                color: #fff;
+            }
+            .cfoot .cbtn:focus-visible,
+            .cscratch:focus-visible {
+                outline: 3px solid var(--purple);
+                outline-offset: -3px;
+            }
+            .cscratch {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 3;
+                cursor: crosshair;
+                touch-action: none;
+                transition: opacity 0.6s ease;
+            }
+            .cscratch.gone {
+                opacity: 0;
+                pointer-events: none;
+            }
+            .cstamp {
+                display: none;
+                position: absolute;
+                left: 50%;
+                top: 42%;
+                z-index: 2;
+                transform: translate(-50%, -50%) rotate(-14deg);
+                text-align: center;
+                font-family: var(--serif);
+                font-weight: 700;
+                font-size: 1.5rem;
+                line-height: 1.2;
+                color: var(--rose);
+                border: 3px solid var(--rose);
+                border-radius: 10px;
+                padding: 4px 16px;
+                background: rgba(255, 255, 255, 0.75);
+            }
+            .cstamp small {
+                display: block;
+                font-family: var(--sans);
+                font-size: 0.75rem;
+                font-weight: 600;
+            }
+            .coupon.used .cstamp {
+                display: block;
+            }
+            .coupon.used .cbody {
+                opacity: 0.4;
+            }
         </style>
     </head>
 
@@ -1172,6 +1343,16 @@
                 <h2 class="sec-title">Our Memories</h2>
                 <p class="sec-sub">Little moments that became my whole world.</p>
                 <div class="gallery" id="gallery"></div>
+            </section>
+
+            <section id="coupons" class="reveal">
+                <h2 class="sec-title">Coupons For You</h2>
+                <p class="sec-sub">Scratch each one with your finger. All valid, no expiry. 🎟️</p>
+                <p class="coupon-count" id="couponCount"></p>
+                <h3 class="coupon-group">The sweet ones 🍓</h3>
+                <div class="coupon-grid" id="couponsSweet"></div>
+                <h3 class="coupon-group after-dark">After dark 🔞😈</h3>
+                <div class="coupon-grid" id="couponsHot"></div>
             </section>
 
             <section id="surprise" class="surprise reveal">
@@ -1322,8 +1503,7 @@
                 ],
                 letterSignature: 'Yours forever,',
 
-                secretMessage:
-                    'Psst… I fall in love with you a little more every single morning. Thank you for being mine. 💗',
+                secretMessage: 'Psst… I love you. There, I said it. Now stop smiling at your screen. 😂❤️',
 
                 loveAnswers: [
                     'A lot. Like, an unreasonable amount. 😂',
@@ -1348,6 +1528,41 @@
                 ],
 
                 music: 'music/forever-in-love.mp3',
+
+                // Scratch-off coupons. hot: true puts a coupon in the "After dark" group.
+                coupons: [
+                    {
+                        emoji: '🍕',
+                        title: 'Free Food Trip',
+                        text: 'Your choice, my treat. No complaints about where. But not now, haha.'
+                    },
+                    { emoji: '💆', title: 'One Massage', text: 'Redeemable anytime. Duration: until you say stop.' },
+                    {
+                        emoji: '🎬',
+                        title: 'Movie Night, Your Pick',
+                        text: 'I won’t say a word about the movie. Okay, maybe one.'
+                    },
+                    { emoji: '🛵', title: 'One Motor Ride', text: 'Anywhere in Bohol only.' },
+                    { emoji: '😴', title: 'Cuddle Pass', text: 'Valid on any boring afternoon.' },
+                    { emoji: '🍦', title: 'Ice Cream On Demand', text: 'Valid even if it’s raining.' },
+
+                    { emoji: '🍭', title: 'BJ Pass', text: 'Until come, hahaha. 😏', hot: true },
+                    { emoji: '👅', title: 'Lick Pass', text: 'Until kaiihi. 💦', hot: true },
+                    { emoji: '🛏️', title: 'Bembang', text: '10 rounds. Water breaks allowed. 🥵', hot: true },
+                    {
+                        emoji: '💋',
+                        title: 'Kiss Marathon',
+                        text: 'Until maluya ang lips. No timer, no mercy.',
+                        hot: true
+                    },
+                    { emoji: '🚿', title: 'Shower Together', text: 'Tubig is on me, sabon is on you. 🧼', hot: true },
+                    {
+                        emoji: '😈',
+                        title: 'Wild Card',
+                        text: 'One naughty wish. No questions asked, no judging. 🔥',
+                        hot: true
+                    }
+                ],
 
                 footerNote: 'Made with all my love'
             };
@@ -1596,6 +1811,212 @@
                 }
                 return d;
             }
+            function setupCoupons() {
+                const KEY = 'monthsary-coupons-v1';
+                let state = {};
+                try {
+                    state = JSON.parse(localStorage.getItem(KEY)) || {};
+                } catch (e) {}
+                const save = () => {
+                    try {
+                        localStorage.setItem(KEY, JSON.stringify(state));
+                    } catch (e) {}
+                };
+                const list = CONFIG.coupons || [];
+                const countEl = $('#couponCount');
+                const updateCount = () => {
+                    const n = list.filter((c) => state[c.title]).length;
+                    countEl.textContent =
+                        n >= list.length ? 'All revealed. Now start redeeming. 😏' : `${n} of ${list.length} revealed`;
+                };
+
+                function paintFoil(canvas, face, hot) {
+                    const w = face.clientWidth,
+                        h = face.clientHeight;
+                    if (!w || !h) return false;
+                    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    canvas.width = Math.round(w * dpr);
+                    canvas.height = Math.round(h * dpr);
+                    const g = canvas.getContext('2d', { willReadFrequently: true });
+                    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    g.globalCompositeOperation = 'source-over';
+                    const grad = g.createLinearGradient(0, 0, w, h);
+                    const stops = hot
+                        ? ['#6d1b5e', '#c2185b', '#8e2a7a', '#e11d62', '#6d1b5e']
+                        : ['#bdb6cc', '#f3f0fa', '#a79fba', '#e6e1f1', '#b4adc7'];
+                    stops.forEach((c, i) => grad.addColorStop(i / (stops.length - 1), c));
+                    g.fillStyle = grad;
+                    g.fillRect(0, 0, w, h);
+                    for (let i = 0; i < w * h * 0.012; i++) {
+                        g.fillStyle = Math.random() < 0.5 ? 'rgba(255,255,255,.28)' : 'rgba(0,0,0,.10)';
+                        g.fillRect(Math.random() * w, Math.random() * h, 1.6, 1.6);
+                    }
+                    g.fillStyle = 'rgba(255,255,255,.14)';
+                    for (let x = -h; x < w; x += 46) {
+                        g.beginPath();
+                        g.moveTo(x, h);
+                        g.lineTo(x + 16, h);
+                        g.lineTo(x + 16 + h, 0);
+                        g.lineTo(x + h, 0);
+                        g.fill();
+                    }
+                    g.textAlign = 'center';
+                    g.textBaseline = 'middle';
+                    g.fillStyle = hot ? 'rgba(255,255,255,.92)' : 'rgba(74,29,63,.75)';
+                    g.font = "700 22px 'Playfair Display', Georgia, serif";
+                    g.fillText(hot ? '🔞 Scratch me' : '✨ Scratch me', w / 2, h / 2 - 12);
+                    g.font = "500 13px 'Quicksand', system-ui, sans-serif";
+                    g.fillText('use your finger', w / 2, h / 2 + 16);
+                    face.classList.remove('prep');
+                    return true;
+                }
+
+                function build(c, host) {
+                    const el = document.createElement('article');
+                    el.className = 'coupon' + (c.hot ? ' hot' : '');
+                    el.innerHTML =
+                        '<div class="cface prep">' +
+                        (c.hot ? '<span class="cbadge">18+</span>' : '') +
+                        '<div class="cbody"><div class="cem"></div><h4 class="ctitle"></h4><p class="ctext"></p></div>' +
+                        '<div class="cfoot"><button class="cbtn" type="button">Redeem 🎟️</button></div>' +
+                        '<div class="cstamp" aria-hidden="true"></div></div>';
+                    const face = $('.cface', el),
+                        btn = $('.cbtn', el);
+                    $('.cem', el).textContent = c.emoji;
+                    $('.ctitle', el).textContent = c.title;
+                    $('.ctext', el).textContent = c.text;
+                    host.appendChild(el);
+
+                    function markUsed(date) {
+                        el.classList.add('used');
+                        $('.cstamp', el).innerHTML = 'USED ✓<small></small>';
+                        $('.cstamp small', el).textContent = date;
+                        btn.textContent = 'Redeemed ✓';
+                        btn.disabled = true;
+                    }
+
+                    let sureTimer = null;
+                    btn.addEventListener('click', () => {
+                        if (!btn.classList.contains('sure')) {
+                            btn.classList.add('sure');
+                            btn.textContent = 'Sure? Tap again';
+                            sureTimer = setTimeout(() => {
+                                btn.classList.remove('sure');
+                                btn.textContent = 'Redeem 🎟️';
+                            }, 3000);
+                            return;
+                        }
+                        clearTimeout(sureTimer);
+                        btn.classList.remove('sure');
+                        const date = getNow().toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+                        state[c.title] = { s: 'used', d: date };
+                        save();
+                        markUsed(date);
+                        launchConfetti(0.5, 0.6, 80);
+                        burst(btn, 14);
+                    });
+
+                    const saved = state[c.title];
+                    if (saved) {
+                        face.classList.remove('prep');
+                        if (saved.s === 'used') markUsed(saved.d);
+                        return;
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.className = 'cscratch';
+                    canvas.tabIndex = 0;
+                    canvas.setAttribute('role', 'button');
+                    canvas.setAttribute('aria-label', 'Scratch to reveal this coupon. Press Enter to reveal.');
+                    face.appendChild(canvas);
+
+                    let done = false,
+                        touched = false,
+                        down = false,
+                        last = null,
+                        moves = 0;
+                    const ro = new ResizeObserver(() => {
+                        if (!done && !touched) paintFoil(canvas, face, !!c.hot);
+                    });
+                    ro.observe(face);
+
+                    const pos = (e) => {
+                        const r = canvas.getBoundingClientRect();
+                        return { x: e.clientX - r.left, y: e.clientY - r.top };
+                    };
+                    function scratch(a, b) {
+                        const g = canvas.getContext('2d');
+                        g.globalCompositeOperation = 'destination-out';
+                        g.lineWidth = 40;
+                        g.lineCap = 'round';
+                        g.lineJoin = 'round';
+                        g.beginPath();
+                        g.moveTo(a.x, a.y);
+                        g.lineTo(b.x, b.y);
+                        g.stroke();
+                    }
+                    function cleared() {
+                        const g = canvas.getContext('2d');
+                        const d = g.getImageData(0, 0, canvas.width, canvas.height).data;
+                        let total = 0,
+                            gone = 0;
+                        for (let i = 3; i < d.length; i += 64) {
+                            total++;
+                            if (d[i] < 128) gone++;
+                        }
+                        return gone / total;
+                    }
+                    function reveal() {
+                        if (done) return;
+                        done = true;
+                        ro.disconnect();
+                        canvas.classList.add('gone');
+                        setTimeout(() => canvas.remove(), 700);
+                        state[c.title] = { s: 'revealed' };
+                        save();
+                        updateCount();
+                        const r = el.getBoundingClientRect();
+                        launchConfetti(
+                            (r.left + r.width / 2) / innerWidth,
+                            Math.min(Math.max((r.top + r.height / 2) / innerHeight, 0.25), 0.8),
+                            c.hot ? 90 : 60
+                        );
+                        burst(el, c.hot ? 18 : 12);
+                    }
+                    canvas.addEventListener('pointerdown', (e) => {
+                        if (done) return;
+                        touched = true;
+                        down = true;
+                        canvas.setPointerCapture(e.pointerId);
+                        last = pos(e);
+                        scratch(last, last);
+                    });
+                    canvas.addEventListener('pointermove', (e) => {
+                        if (!down || done) return;
+                        const p = pos(e);
+                        scratch(last, p);
+                        last = p;
+                        if (++moves % 6 === 0 && cleared() > 0.5) reveal();
+                    });
+                    const up = () => {
+                        if (!down) return;
+                        down = false;
+                        if (!done && cleared() > 0.5) reveal();
+                    };
+                    canvas.addEventListener('pointerup', up);
+                    canvas.addEventListener('pointercancel', up);
+                    canvas.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            reveal();
+                        }
+                    });
+                }
+
+                list.forEach((c) => build(c, c.hot ? $('#couponsHot') : $('#couponsSweet')));
+                updateCount();
+            }
+
             function setupGallery() {
                 const g = $('#gallery');
                 CONFIG.photos.forEach((p, i) => {
@@ -1996,6 +2417,7 @@
             setupSince();
             setupJourney();
             setupGallery();
+            setupCoupons();
             setupMusic();
             tick();
             setInterval(tick, 1000);
