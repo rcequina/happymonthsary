@@ -823,6 +823,82 @@
                 margin-top: 6px;
             }
 
+            /* emoji riddle */
+            .rebus {
+                text-align: center;
+                padding-bottom: 20px;
+            }
+            .rebus-card {
+                padding: 32px 18px 30px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 14px;
+            }
+            .rebus-row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 14px 30px;
+            }
+            .rb-word {
+                position: relative;
+                display: inline-flex;
+                align-items: flex-end;
+                gap: 4px;
+                padding: 10px 16px;
+                border-radius: 22px;
+                background: rgba(255, 255, 255, 0.75);
+                box-shadow: 0 8px 22px rgba(139, 38, 110, 0.15);
+                transition: transform 0.25s ease;
+            }
+            .rb-word:hover {
+                transform: translateY(-3px);
+            }
+            .rb {
+                font-size: clamp(2.8rem, 14vw, 4.2rem);
+                line-height: 1.1;
+                display: inline-block;
+                animation: bob 2.4s ease-in-out infinite;
+            }
+            .rb:nth-child(2) {
+                animation-delay: 0.3s;
+            }
+            .rb.crown {
+                font-size: clamp(1.6rem, 8vw, 2.4rem);
+                position: absolute;
+                top: -14px;
+                left: 8px;
+                transform: rotate(-18deg);
+                animation: none;
+            }
+            .rb-word.wiggle .rb:not(.crown) {
+                animation: wiggle 0.6s ease;
+            }
+            @keyframes wiggle {
+                25% {
+                    transform: rotate(-14deg) scale(1.2);
+                }
+                60% {
+                    transform: rotate(12deg) scale(1.2);
+                }
+            }
+            #rebusAns {
+                margin-top: 6px;
+                animation: swap 0.8s ease;
+            }
+            #rebusAns .ans {
+                font-family: var(--script);
+                font-size: clamp(2.4rem, 11vw, 3.6rem);
+                line-height: 1.1;
+                color: var(--rose);
+            }
+            #rebusAns p {
+                font-family: var(--serif);
+                font-style: italic;
+                margin-top: 4px;
+            }
+
             footer {
                 text-align: center;
                 padding: 50px 16px 110px;
@@ -1107,6 +1183,27 @@
                 <div>
                     <button class="bigheart" id="bigHeart" aria-label="Tap the heart">❤️</button>
                     <div class="tap">tap the heart</div>
+                </div>
+            </section>
+
+            <section id="rebus" class="rebus reveal">
+                <h2 class="sec-title">One Last Riddle</h2>
+                <p class="sec-sub">Can you read this? No letters allowed. 😝</p>
+                <div class="card rebus-card">
+                    <div class="rebus-row" id="rebusRow">
+                        <button class="rb-word" aria-label="Emoji word one">
+                            <span class="rb crown">👑</span><span class="rb">🍑</span>
+                        </button>
+                        <button class="rb-word" aria-label="Emoji word two">
+                            <span class="rb">📢</span><span class="rb">😭</span>
+                        </button>
+                    </div>
+                    <div class="tap">tap the emojis</div>
+                    <button class="btn ghost" id="rebusBtn" type="button">Decode it 🔍</button>
+                    <div id="rebusAns" hidden>
+                        <div class="ans">sapoton uwagan</div>
+                        <p>…and I love you anyway. 💖</p>
+                    </div>
                 </div>
             </section>
 
@@ -1572,6 +1669,21 @@
                 $('#heartMsg').textContent = fmt(msg);
                 $('#heartModal').classList.add('open');
                 burst(e.currentTarget, 18);
+            });
+
+            $$('.rb-word').forEach((w) =>
+                w.addEventListener('click', () => {
+                    w.classList.remove('wiggle');
+                    void w.offsetWidth;
+                    w.classList.add('wiggle');
+                    burst(w, 8);
+                })
+            );
+            $('#rebusBtn').addEventListener('click', (e) => {
+                $('#rebusAns').hidden = false;
+                e.currentTarget.hidden = true;
+                launchConfetti(0.5, 0.7, 100);
+                burst($('#rebusAns'), 14);
             });
 
             const HEARTS = ['❤️', '💖', '💗', '💕', '💘', '🩷', '💜'];
