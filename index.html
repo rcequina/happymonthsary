@@ -2358,7 +2358,10 @@
                             io.unobserve(e.target);
                         }
                     }),
-                { threshold: 0.12 }
+                // threshold 0 + rootMargin: reveal as soon as any part is near the viewport.
+                // (A fractional threshold never fires for very tall sections on phones,
+                // e.g. the coupons list, leaving them stuck at opacity 0.)
+                { threshold: 0, rootMargin: '0px 0px -8% 0px' }
             );
             function watchReveals() {
                 $$('.reveal').forEach((el) => io.observe(el));
