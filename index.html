@@ -1423,7 +1423,7 @@
                       ? `${m} month${m === 1 ? '' : 's'} of us`
                       : 'Counting down';
                 $('#heroTitle').textContent = monthsaryTitle(m) + '!';
-                $('#heroTo').textContent = `to my ${CONFIG.partnerName} 💕`;
+                $('#heroTo').textContent = `to ${CONFIG.partnerName} 💕`;
                 let text = fmt(CONFIG.heroText, m);
                 if (!isToday) {
                     const next = addMonths(START, m + 1);
