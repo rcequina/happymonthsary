@@ -12,7 +12,9 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Our Monthsary" />
-        <title>Happy Monthsary, My Love</title>
+        <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+        <meta name="googlebot" content="noindex, nofollow" />
+        <title>Happy Monthsary, My Dear</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -163,7 +165,7 @@
             #welcome h1 {
                 font-family: var(--script);
                 font-weight: 400;
-                font-size: clamp(3rem, 13vw, 6rem);
+                font-size: clamp(3rem, 13vw, 5rem);
                 line-height: 1.05;
                 text-shadow: 0 4px 30px rgba(255, 120, 170, 0.6);
             }
@@ -247,6 +249,168 @@
                 to {
                     left: 180%;
                 }
+            }
+
+            /* ---------- Login gate ---------- */
+            #login {
+                position: fixed;
+                inset: 0;
+                z-index: 30;
+                display: grid;
+                place-items: center;
+                text-align: center;
+                padding: 24px;
+                background:
+                    radial-gradient(circle at 30% 20%, #7a1f68 0%, transparent 55%),
+                    radial-gradient(circle at 80% 80%, #c2185b 0%, transparent 50%),
+                    linear-gradient(160deg, #2a0a2e, #4a1148 55%, #7a1f55);
+                color: #fff;
+                transition:
+                    opacity 1s ease,
+                    transform 1s ease,
+                    visibility 1s;
+            }
+            #login.leaving {
+                opacity: 0;
+                transform: scale(1.08);
+                visibility: hidden;
+            }
+            #login .inner {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                max-width: 420px;
+            }
+            #login h1 {
+                font-family: var(--script);
+                font-weight: 400;
+                font-size: clamp(2.8rem, 12vw, 3.5rem);
+                line-height: 1.25;
+                text-shadow: 0 4px 30px rgba(255, 120, 170, 0.6);
+                background: linear-gradient(90deg, #ffd1e3, #fff, #e9d5ff);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            #login p.sub {
+                margin: 14px auto 26px;
+                max-width: 340px;
+                opacity: 0.88;
+            }
+            #loginForm {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 18px;
+            }
+            #callsign {
+                width: 100%;
+                padding: 15px 22px;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                background: rgba(255, 255, 255, 0.12);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                color: #fff;
+                font: inherit;
+                font-size: 1.1rem;
+                text-align: center;
+                letter-spacing: 0.08em;
+                outline: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                transition:
+                    border-color 0.25s ease,
+                    box-shadow 0.25s ease,
+                    background 0.25s ease;
+            }
+            #callsign::placeholder {
+                color: rgba(255, 255, 255, 0.6);
+                letter-spacing: 0.04em;
+            }
+            #callsign:focus {
+                border-color: var(--rose-soft);
+                background: rgba(255, 255, 255, 0.18);
+                box-shadow:
+                    0 0 0 4px rgba(255, 122, 168, 0.28),
+                    0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+            #callsign.shake {
+                animation: shake 0.5s ease;
+                border-color: #ff5c93;
+            }
+            @keyframes shake {
+                0%,
+                100% {
+                    transform: translateX(0);
+                }
+                20%,
+                60% {
+                    transform: translateX(-10px);
+                }
+                40%,
+                80% {
+                    transform: translateX(10px);
+                }
+            }
+            .hint-link {
+                margin-top: 18px;
+                font-size: 0.9rem;
+                opacity: 0.7;
+                text-decoration: underline;
+                text-underline-offset: 4px;
+            }
+            .hint-link:hover {
+                opacity: 1;
+            }
+
+            /* funny pop-up */
+            #oops {
+                position: fixed;
+                inset: 0;
+                z-index: 60;
+                display: grid;
+                place-items: center;
+                padding: 24px;
+                background: rgba(42, 10, 46, 0.55);
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                opacity: 0;
+                visibility: hidden;
+                transition:
+                    opacity 0.25s ease,
+                    visibility 0.25s;
+            }
+            #oops.open {
+                opacity: 1;
+                visibility: visible;
+            }
+            #oops .box {
+                max-width: 360px;
+                width: 100%;
+                padding: 30px 26px 26px;
+                text-align: center;
+                transform: scale(0.8) rotate(-3deg);
+                transition: transform 0.35s cubic-bezier(0.2, 1.4, 0.4, 1);
+            }
+            #oops.open .box {
+                transform: none;
+            }
+            #oops .em {
+                font-size: 3.4rem;
+                line-height: 1;
+                display: inline-block;
+                animation: beat 1.4s ease-in-out infinite;
+            }
+            #oops h3 {
+                font-family: var(--script);
+                font-weight: 400;
+                font-size: 2.2rem;
+                color: var(--rose);
+                margin: 6px 0 4px;
+                line-height: 1.1;
+            }
+            #oops p {
+                margin-bottom: 20px;
             }
 
             /* ---------- Main ---------- */
@@ -798,6 +962,38 @@
     <body>
         <div id="hearts"></div>
 
+        <!-- ================= LOGIN GATE ================= -->
+        <div id="login">
+            <div class="inner">
+                <div class="pulse-heart">🔐</div>
+                <div class="eyebrow">Restricted area &middot; Two people only</div>
+                <h1>What's our little secret?</h1>
+                <p class="sub">Only my person knows the key. Type it in to get inside.</p>
+                <form id="loginForm" autocomplete="off">
+                    <input
+                        id="callsign"
+                        type="text"
+                        placeholder="Only we know the answer…"
+                        autocomplete="off"
+                        autocapitalize="none"
+                        spellcheck="false"
+                        aria-label="Callsign"
+                    />
+                    <button class="btn" type="submit">Unlock 💖</button>
+                </form>
+                <button class="hint-link" id="hintBtn" type="button">I forgot… 🥺</button>
+            </div>
+        </div>
+
+        <div id="oops" role="alertdialog" aria-live="assertive">
+            <div class="card box">
+                <div class="em" id="oopsEm">🙈</div>
+                <h3 id="oopsTitle">Oops!</h3>
+                <p id="oopsMsg"></p>
+                <button class="btn" id="oopsBtn" type="button">Okay, try again</button>
+            </div>
+        </div>
+
         <!-- ================= WELCOME SCREEN ================= -->
         <div id="welcome">
             <div class="inner">
@@ -926,8 +1122,12 @@
 
         <script>
             const CONFIG = {
+                callsignSalt: '40c6fdfbc7c94a3f',
+                callsignIterations: 150000,
+                callsignHashes: ['c7380a79b10cd6f9dcee49576f3806284249c4aeecbb7410b5a37baa798775ea'],
+
                 yourName: 'Nonchalant',
-                partnerName: 'My Dear Sapoton', // e.g. "Maria"  (or a nickname: "Babe", "Mahal")
+                partnerName: 'My Dear Sapoton',
 
                 startDate: '2024-08-19T00:00:00',
 
@@ -949,18 +1149,33 @@
                 ],
 
                 greetings: {
-                    1: 'One month down and a lifetime to go. Thank you for being the best beginning, {partner}.',
-                    2: 'Two months, and you still give me butterflies. Every day with you feels like a gift.',
-                    3: 'Three months of laughing, learning, and loving you more each day.',
-                    4: "Four months in, and I'd choose you again and again, {partner}.",
-                    5: 'Five months of you. My heart has never felt this at home.',
-                    6: "Half a year! You've become my favorite person, my safe place, and my best friend.",
-                    7: 'Seven months, and my love for you keeps growing in ways I never expected.',
-                    8: 'Eight months of us, and I still smile every time my phone lights up with your name.',
-                    9: "Nine months of beautiful memories. Here's to a thousand more with you.",
-                    10: "Ten months. Time flies when I'm with you, and I wouldn't slow it down for anything.",
-                    11: 'Eleven months, almost a whole year of loving you. You make everything brighter.',
-                    12: 'One whole year of us, {partner}! You are my today, my tomorrow, and my always.'
+                    1: 'One month already? Not bad, {partner}. Here’s to more of this.',
+                    2: 'Two months of putting up with each other. I’d say we’re doing pretty well.',
+                    3: 'Three months in, and I still enjoy bothering you every day.',
+                    4: 'Four months already. Time really does fly when we’re having fun.',
+                    5: 'Five months with you. Still my favorite person to annoy.',
+                    6: 'Six months! Half a year of random talks, laughs, and everything in between.',
+                    7: 'Seven months down. Still no plans of getting tired of you.',
+                    8: 'Eight months of us. Somehow, you’re still not sick of me. Impressive.',
+                    9: 'Nine months already? Guess we’re actually good at this relationship thing.',
+                    10: 'Ten months with you. Still fun, still weird, still us.',
+                    11: 'Eleven months! Almost a year of dealing with my nonsense. Good luck.',
+                    12: 'A whole year together, {partner}. That’s one year of memories and a lot more nonsense to come.',
+                    13: 'Thirteen months. Nothing too fancy, just happy we’re still doing this.',
+                    14: 'Fourteen months with my favorite human. Pretty cool, if you ask me.',
+                    15: 'Fifteen months already. Still glad I get to share my days with you.',
+                    16: 'Sixteen months of us being us. Wouldn’t have it any other way.',
+                    17: 'Seventeen months! We’ve made it this far without getting bored. Nice.',
+                    18: 'Eighteen months together. More than a year of random stories and little moments.',
+                    19: 'Nineteen months. Still choosing to bother you instead of anyone else.',
+                    20: 'Twenty months already. We should probably celebrate by doing absolutely nothing together.',
+                    21: 'Twenty-one months with you. Still my favorite notification, unfortunately.',
+                    22: 'Twenty-two months! Thanks for being part of my everyday chaos.',
+                    23: 'Twenty-three months. One more month until another year of us.',
+                    24: 'Two whole years, {partner}. Look at us being all consistent and stuff.',
+                    25: 'Twenty-five months together. Still enjoying this little thing we have.',
+                    26: 'Twenty-six months. Same two people, more memories, and probably more inside jokes.',
+                    27: 'Twenty-seven months already. Glad it’s still you and me. Let’s keep going.'
                 },
                 defaultGreeting:
                     "Another month with you, and another reason to fall deeper in love. I'm so grateful for you, {partner}.",
@@ -968,7 +1183,7 @@
                 heroText: 'Every month with you is a treasure. I wanted to celebrate us today, in my own little way.',
 
                 letter: [
-                    'My dearest {partner},',
+                    '{partner},',
                     "I don't know how to say this perfectly, but I'll try. Since the day you came into my life, everything has felt softer, brighter, and more beautiful. You turned ordinary days into my favorite memories.",
                     "Thank you for your patience, your laughter, and the way you care about me even when I'm not at my best. You make me want to be better, not because you ask me to, but because you deserve the very best of me.",
                     'I promise to hold your hand through the good days and the hard ones, to listen when you need to be heard, to cheer the loudest for your dreams, and to keep choosing you every single day.',
@@ -981,21 +1196,28 @@
                     'Psst… I fall in love with you a little more every single morning. Thank you for being mine. 💗',
 
                 loveAnswers: [
-                    'More than all the stars in the sky ✨',
-                    'To the moon, and back, and then around the galaxy 🌙',
-                    'More than words, more than songs, more than I can ever show 💞',
-                    'Infinity… plus one more. Always one more. ♾️❤️'
+                    'A lot. Like, an unreasonable amount. 😂',
+                    'More than I probably admit.',
+                    'Enough to keep choosing you every day. ❤️',
+                    'Hmm... still not tired of you, so that says a lot. 🤭',
+                    'From here to wherever you are, and back.',
+                    'A whole lot. Don’t let it get to your head. 😌',
+                    'More than all my favorite things combined.',
+                    'If you haven’t noticed by now, that’s on you. 😂'
                 ],
 
                 heartMessages: [
-                    'You are my favorite hello and my hardest goodbye. 💘',
-                    'I love the way you make ordinary moments feel magical. ✨',
-                    'Everything I want is wherever you are. 🏡',
-                    "You're the reason I believe in forever. 💍",
-                    'Thank you for loving me exactly as I am. 🥹'
+                    'You’re still my favorite person to talk to, even when we have nothing to talk about. 😂',
+                    'I like having you around. Even when you’re being annoying. ❤️',
+                    'Life’s a little more fun with you in it.',
+                    'I don’t say it all the time, but I’m really glad I have you.',
+                    'You’re stuck with me, just so you know. 🤭',
+                    'Even on boring days, talking to you makes things better.',
+                    'I guess having you as my person is pretty nice. 😌',
+                    'No big reason. I just really like you. ❤️'
                 ],
 
-                music: '',
+                music: 'music/forever-in-love.mp3',
 
                 footerNote: 'Made with all my love'
             };
@@ -1493,6 +1715,127 @@
                     window.scrollTo(0, 0);
                 }, 1100);
             });
+
+            /* ---------- Login gate ---------- */
+            const WRONG = [
+                { e: '🕵️', t: 'Intruder alert!', m: "That's not the magic word. Are you the neighbor? Shoo!" },
+                {
+                    e: '🤨',
+                    t: 'Hmm… suspicious',
+                    m: 'My Sapoton would never forget this. Who are you and what did you do with her?'
+                },
+                { e: '🙈', t: 'Wrong, dear', m: 'Hala. Wrong key. Take a deep breath and think about us.' },
+                {
+                    e: '🚨',
+                    t: 'Wee-woo wee-woo',
+                    m: 'Security has been notified. (It is just me, and I am judging you.)'
+                },
+                { e: '🐸', t: 'Ribbit?', m: 'That sounded like a frog, not the magic word. Try again, dearrr.' },
+                { e: '💔', t: 'Ouch.', m: 'My heart just cracked a little. Kidding. Maybe. Try again.' },
+                { e: '🤖', t: 'ERROR 404', m: 'Magic word not found. Girlfriend privileges temporarily suspended.' },
+                { e: '🍑', t: 'Nah-uh', m: 'Close, but no sapoton. Try again!' },
+                { e: '😭', t: 'Seriously?', m: 'After all our late-night talks? You really typed that?' }
+            ];
+            const EMPTY = {
+                e: '🫥',
+                t: 'Nothing there!',
+                m: 'You have to actually type something, dear. The box is not decorative.'
+            };
+            const HINTS = [
+                {
+                    e: '🥺',
+                    t: 'A tiny hint',
+                    m: "It's the word only the two of us use. Think about it."
+                },
+                {
+                    e: '😏',
+                    t: 'Still stuck?',
+                    m: 'No more hints! Okay, one more: think about how we say hi to each other.'
+                }
+            ];
+            let wrongCount = 0,
+                hintCount = 0;
+            const norm = (v) => v.trim().toLowerCase().replace(/\s+/g, ' ');
+
+            function showOops(o, btnText = 'Okay, try again') {
+                $('#oopsEm').textContent = o.e;
+                $('#oopsTitle').textContent = o.t;
+                $('#oopsMsg').textContent = o.m;
+                $('#oopsBtn').textContent = btnText;
+                $('#oops').classList.add('open');
+                $('#oopsBtn').focus();
+            }
+            function closeOops() {
+                $('#oops').classList.remove('open');
+                $('#callsign').focus();
+            }
+            $('#oopsBtn').addEventListener('click', closeOops);
+            $('#oops').addEventListener('click', (e) => {
+                if (e.target.id === 'oops') closeOops();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeOops();
+            });
+
+            $('#hintBtn').addEventListener('click', () => {
+                showOops(HINTS[Math.min(hintCount, HINTS.length - 1)], 'Got it 💕');
+                hintCount++;
+            });
+
+            async function hashCallsign(text) {
+                const enc = new TextEncoder();
+                const key = await crypto.subtle.importKey('raw', enc.encode(text), 'PBKDF2', false, ['deriveBits']);
+                const bits = await crypto.subtle.deriveBits(
+                    {
+                        name: 'PBKDF2',
+                        hash: 'SHA-256',
+                        salt: enc.encode(CONFIG.callsignSalt),
+                        iterations: CONFIG.callsignIterations
+                    },
+                    key,
+                    256
+                );
+                return [...new Uint8Array(bits)].map((b) => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            $('#loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const input = $('#callsign');
+                const val = norm(input.value);
+                if (!val) {
+                    showOops(EMPTY);
+                    return;
+                }
+                let ok = false;
+                try {
+                    ok = CONFIG.callsignHashes.includes(await hashCallsign(val));
+                } catch (err) {
+                    showOops({
+                        e: '🔒',
+                        t: 'Secure page needed',
+                        m: 'The unlock check only works on https or localhost. Open the site from its GitHub link.'
+                    });
+                    return;
+                }
+                if (ok) {
+                    const lg = $('#login');
+                    lg.classList.add('leaving');
+                    launchConfetti(0.5, 0.55, 90);
+                    burst($('#loginForm button'), 18);
+                    input.blur();
+                    setTimeout(() => (lg.hidden = true), 1100);
+                } else {
+                    input.classList.remove('shake');
+                    void input.offsetWidth;
+                    input.classList.add('shake');
+                    const msg = { ...WRONG[wrongCount % WRONG.length] };
+                    wrongCount++;
+                    if (wrongCount % 5 === 0) msg.m += ' (Attempt #' + wrongCount + '. I am counting.)';
+                    showOops(msg);
+                    input.select();
+                }
+            });
+            setTimeout(() => $('#callsign').focus({ preventScroll: true }), 300);
 
             setupHero();
             setupSince();
