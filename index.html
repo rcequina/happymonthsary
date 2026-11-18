@@ -907,6 +907,29 @@
                 font-size: 1.25rem;
                 margin: 10px 0 18px;
             }
+            #monthModal .box {
+                max-height: calc(100dvh - 40px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            #monthModal .big {
+                font-size: 3rem;
+                line-height: 1.1;
+            }
+            #monthModal h3 {
+                font-family: var(--script);
+                font-weight: 400;
+                font-size: clamp(2.2rem, 9vw, 3rem);
+                color: var(--rose);
+                line-height: 1.1;
+                margin: 6px 0 10px;
+            }
+            #monthModal p {
+                font-family: var(--serif);
+                font-style: italic;
+                font-size: 1.15rem;
+                margin: 0 0 20px;
+            }
             #lightbox .box {
                 max-width: 560px;
                 padding: 16px 16px 22px;
@@ -1050,7 +1073,6 @@
                 <h2 class="sec-title">Every Monthsary</h2>
                 <p class="sec-sub">Tap a heart to open that month's message.</p>
                 <div class="months" id="monthsRow"></div>
-                <div class="card greet-card" id="greetCard"></div>
             </section>
 
             <section id="letter" class="reveal">
@@ -1102,6 +1124,17 @@
                 <button class="x" data-close aria-label="Close">×</button>
                 <div class="big">💘</div>
                 <p id="heartMsg"></p>
+                <button class="btn" data-close>Aww 🥹</button>
+            </div>
+        </div>
+
+        <!-- monthsary message modal -->
+        <div class="modal" id="monthModal" role="dialog" aria-modal="true" aria-labelledby="monthTitle">
+            <div class="box">
+                <button class="x" data-close aria-label="Close">×</button>
+                <div class="big">💌</div>
+                <h3 id="monthTitle"></h3>
+                <p id="monthMsg"></p>
                 <button class="btn" data-close>Aww 🥹</button>
             </div>
         </div>
@@ -1362,13 +1395,14 @@
                     else b.disabled = true;
                     row.appendChild(b);
                 }
-                showGreeting(m, true);
             }
-            function showGreeting(n, initial) {
+            function showGreeting(n) {
                 $$('.mh').forEach((b, i) => b.classList.toggle('sel', i + 1 === n));
-                const card = $('#greetCard');
-                card.innerHTML = `<div class="fade-swap"><h3>${monthsaryTitle(n)}</h3><p></p></div>`;
-                $('p', card).textContent = fmt(greetingFor(n), n);
+                $('#monthTitle').textContent = monthsaryTitle(n);
+                $('#monthMsg').textContent = fmt(greetingFor(n), n);
+                const modal = $('#monthModal');
+                modal.classList.add('open');
+                $('.box', modal).scrollTop = 0;
             }
 
             let typing = false,
@@ -1497,11 +1531,17 @@
 
             $$('.modal').forEach((m) => {
                 m.addEventListener('click', (e) => {
-                    if (e.target === m || e.target.hasAttribute('data-close')) m.classList.remove('open');
+                    if (e.target === m || e.target.hasAttribute('data-close')) {
+                        m.classList.remove('open');
+                        if (m.id === 'monthModal') $$('.mh').forEach((b) => b.classList.remove('sel'));
+                    }
                 });
             });
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') $$('.modal.open').forEach((m) => m.classList.remove('open'));
+                if (e.key === 'Escape') {
+                    $$('.modal.open').forEach((m) => m.classList.remove('open'));
+                    $$('.mh').forEach((b) => b.classList.remove('sel'));
+                }
                 if ($('#lightbox').classList.contains('open')) {
                     if (e.key === 'ArrowLeft') openLightbox(lbIndex - 1);
                     if (e.key === 'ArrowRight') openLightbox(lbIndex + 1);
